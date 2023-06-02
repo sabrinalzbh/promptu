@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 
-
 const Nav = () => {
   const { data: session } = useSession();
 
@@ -13,13 +12,16 @@ const Nav = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
-    (async () => {
+     const setUpProviders = async () => {
       const res = await getProviders();
+
       setProviders(res);
-    })();
+    }
+    
+    setUpProviders();
+    
   }, []);
       
-
   return (
     <nav className="flex-between w-full mb-16 pt-3">
       <Link href="/" className='flex gap-2 flex-center'>
@@ -54,6 +56,7 @@ const Nav = () => {
                 alt='profile'
               />
             </Link>
+          
           </div>
            ): (
             <>
